@@ -16,12 +16,6 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: cppcheck
-      run: |
-        sudo apt-get install -y cppcheck
-        cppcheck --enable=all --std=c++17 --error-exitcode=1 --suppressions-list=.cppcheck_suppressions --xml --xml-version=2 --output-file=cppcheck_results.xml .
-      continue-on-error: true
-
     - name: cpplint
       run: |
         pip install cpplint
@@ -32,3 +26,9 @@ jobs:
       run: |
         sudo apt-get install -y clang-tidy
         find . -name "*.cpp" -o -name "*.hpp" -o -name "*.cc" -o -name "*.h" | grep -v "build/" | xargs -I{} clang-tidy {} -- -std=c++17
+      continue-on-error: true
+
+    - name: cppcheck
+      run: |
+        sudo apt-get install -y cppcheck
+        cppcheck --enable=all --std=c++17  .
