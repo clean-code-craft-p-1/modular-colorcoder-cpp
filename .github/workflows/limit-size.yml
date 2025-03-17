@@ -3,7 +3,7 @@ name: Limit file size
 on: [push, pull_request]
 
 jobs:
-  build:
+  limit-size:
     runs-on: ubuntu-latest
 
     steps:
