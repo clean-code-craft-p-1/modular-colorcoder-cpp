@@ -15,20 +15,22 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: '3.x'
+    - name: install tools
+      run: |
+        pip install cpplint
+        sudo apt-get install -y clang-tidy
+        sudo apt-get install -y cppcheck
 
     - name: cpplint
       run: |
-        pip install cpplint
         cpplint  --filter=-legal,-build/c++17 --linelength=100 *.cpp *.h
       continue-on-error: true
 
     - name: clang-format
       run: |
-        sudo apt-get install -y clang-tidy
         find . -name "*.cpp" -o -name "*.hpp" -o -name "*.cc" -o -name "*.h" | grep -v "build/" | xargs -I{} clang-tidy {} -- -std=c++17
       continue-on-error: true
 
     - name: cppcheck
       run: |
-        sudo apt-get install -y cppcheck
         cppcheck --enable=all --std=c++17  .
