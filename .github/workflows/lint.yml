@@ -33,4 +33,4 @@ jobs:
 
     - name: cppcheck
       run: |
-        cppcheck --enable=all --std=c++17  .
+        cppcheck --enable=all --suppress=missingIncludeSystem --std=c++17  .
